@@ -22,4 +22,8 @@
   h3 {
     font-family: 'DM Sans', Inter, system-ui, sans-serif;
   }
+
+  input:-internal-autofill-selected {
+    background: transparent;
+  }
 }
