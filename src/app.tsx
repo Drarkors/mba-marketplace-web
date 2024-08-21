@@ -1,8 +1,9 @@
-import { RouterProvider } from "react-router-dom"
-import { ThemeProvider } from "./components/theme/theme-provider"
-import { router } from "./routes"
+import './global.css'
 
-import "./global.css"
+import { RouterProvider } from 'react-router-dom'
+
+import { ThemeProvider } from './components/theme/theme-provider'
+import { router } from './routes'
 
 function App() {
   return (
