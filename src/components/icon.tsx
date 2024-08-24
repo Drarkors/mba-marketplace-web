@@ -1,8 +1,8 @@
-import { KeyRound, Mail } from 'lucide-react'
+import { KeyRound, Mail, Phone, User } from 'lucide-react'
 
 import { cn } from '@/libs/utils'
 
-export type AvailableIcons = 'mail' | 'password'
+export type AvailableIcons = 'mail' | 'password' | 'phone' | 'user'
 
 export interface IconsProps extends React.SVGAttributes<SVGSVGElement> {
   icon: AvailableIcons
@@ -17,28 +17,16 @@ export function Icon({ icon, hasFocus, hasError, ...props }: IconsProps) {
       ? 'text-orange-base'
       : 'text-gray-200'
 
+  const className = cn('transition-colors duration-500', color, props.className)
+
   switch (icon) {
     case 'mail':
-      return (
-        <Mail
-          {...props}
-          className={cn(
-            'transition-colors duration-500',
-            color,
-            props.className,
-          )}
-        />
-      )
+      return <Mail {...props} className={className} />
     case 'password':
-      return (
-        <KeyRound
-          {...props}
-          className={cn(
-            'transition-colors duration-500',
-            color,
-            props.className,
-          )}
-        />
-      )
+      return <KeyRound {...props} className={className} />
+    case 'phone':
+      return <Phone {...props} className={className} />
+    case 'user':
+      return <User {...props} className={className} />
   }
 }

@@ -1,33 +1,29 @@
 import * as Label from '@radix-ui/react-label'
-import { Eye, EyeOff, OctagonAlert } from 'lucide-react'
-import React, { useCallback, useState } from 'react'
+import { OctagonAlert } from 'lucide-react'
+import React, { useState } from 'react'
+import ReactInputMask from 'react-input-mask'
 
 import { cn } from '@/libs/utils'
 
 import { AvailableIcons, Icon } from './icon'
 
-export interface InputProps
+const Masks = { phone: { mask: '(99) 9 9999-9999' } }
+
+export interface MaskedInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string
   leftIcon?: AvailableIcons
   error?: string
+  mask: keyof typeof Masks
 }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
+const MaskedInput = React.forwardRef<HTMLInputElement, MaskedInputProps>(
   (
-    { className, type, label, leftIcon, onChange, onBlur, error, ...props },
+    { className, label, leftIcon, onChange, onBlur, error, mask, ...props },
     ref,
   ) => {
     const [isFocus, setFocus] = useState(false)
     const [isFilled, setIsFilled] = useState(false)
-    const [isHidden, setIsHidden] = useState(true)
-
-    const [inputType, setInputType] = useState(type)
-
-    const handleInputVisibility = useCallback(() => {
-      setInputType(isHidden ? 'text' : type)
-      setIsHidden((state) => !state)
-    }, [isHidden, type])
 
     return (
       <div className="flex flex-col">
@@ -51,13 +47,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               hasError={!!error}
             />
           )}
-          <input
-            type={inputType}
+          <ReactInputMask
+            mask={Masks[mask].mask}
+            type="text"
             className={cn(
               'h-12 flex-1 bg-transparent caret-orange-base outline-none placeholder:text-gray-200',
               className,
             )}
-            ref={ref}
+            // ref={ref}
             onFocus={() => {
               setFocus(true)
             }}
@@ -70,16 +67,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               setIsFilled(e.target.value.length > 0)
             }}
             {...props}
-          />
-          {type === 'password' && (
-            <button
-              type="button"
-              className="self-center text-gray-300 transition-colors duration-300 hover:text-orange-base"
-              onClick={handleInputVisibility}
-            >
-              {isHidden ? <EyeOff /> : <Eye />}
-            </button>
-          )}
+            value={props.value}
+          ></ReactInputMask>
         </div>
         {!!error && (
           <div className="mt-1 flex items-center gap-1 text-xs text-danger">
@@ -92,6 +81,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   },
 )
 
-Input.displayName = 'Input'
+MaskedInput.displayName = 'MaskedInput'
 
-export { Input }
+export { MaskedInput }
