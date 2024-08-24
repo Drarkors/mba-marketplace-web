@@ -41,7 +41,7 @@ export function Button({
     <button
       className={cn(
         variantClass,
-        'transition-scale flex rounded-xl p-4 font-medium duration-300 hover:scale-90',
+        'transition-scale flex items-center rounded-xl px-3 py-4 font-medium duration-300 hover:scale-90',
         className,
       )}
       {...props}

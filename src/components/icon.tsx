@@ -1,8 +1,8 @@
-import { KeyRound, Mail, Phone, User } from 'lucide-react'
+import { KeyRound, Mail, Phone, Plus, UserRound } from 'lucide-react'
 
 import { cn } from '@/libs/utils'
 
-export type AvailableIcons = 'mail' | 'password' | 'phone' | 'user'
+export type AvailableIcons = 'mail' | 'password' | 'phone' | 'user' | 'plus'
 
 export interface IconsProps extends React.SVGAttributes<SVGSVGElement> {
   icon: AvailableIcons
@@ -27,6 +27,8 @@ export function Icon({ icon, hasFocus, hasError, ...props }: IconsProps) {
     case 'phone':
       return <Phone {...props} className={className} />
     case 'user':
-      return <User {...props} className={className} />
+      return <UserRound {...props} className={className} />
+    case 'plus':
+      return <Plus {...props} className={className} />
   }
 }
